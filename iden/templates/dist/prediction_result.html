@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Prediction Result</title>
+
+</head>
+<body>
+    <div class="container mt-5">
+        {% if prediction %}
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <img src="{{ prediction.image.url }}" alt="Uploaded Image" class="img-fluid mb-4" style="width: 500px; height:500px;">
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <h3>Prediction Result</h3>
+                    <p><strong>ชื่อสามัญ:</strong><br>{{ prediction.class_namelocal }}.</p>
+                    <p><strong>ชื่อทางวิทยาศาสตร์:</strong><br>{{ prediction.class_scientific_name }}.</p>
+                    <p><strong>สรรพคุณ:</strong><br>{{ prediction.class_properties }}.</p>
+                    <p><strong>วิธีการใช้:</strong><br>{{ prediction.class_use }}.</p>
+                </div>
+                <div class="text-center">
+                <a href="{% url 'predict_image' %}" class="btn btn-primary">Back to Upload Image</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <p class="text-center">No prediction available.</p>
+                <a href="{% url 'predict_image' %}" class="btn btn-primary">Back to Upload Image</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
