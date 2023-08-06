@@ -7,37 +7,48 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <title>Prediction Result</title>
+    <style>
+        /* Additional CSS for centering content */
+        .center-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Adjust this value to control the vertical centering */
+        }
 
+        /* CSS for text wrapping */
+        .text-wrap {
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5 ">
         {% if prediction %}
         <div class="row justify-content-center">
-            <div class="col-lg-4">
-                <img src="{{ prediction.image.url }}" alt="Uploaded Image" class="img-fluid mb-4" style="width: 500px; height:500px;">
+            <div class="col-lg-6">
+                <img src="{{ prediction.image.url }}" alt="Uploaded Image" class="img-fluid mb-4" style="width: 500px; height: 500px;">
             </div>
-            <div class="col-lg-4">
-                <div class="text-center">
-                    <h3>Prediction Result</h3>
+            <div class="col-lg-6">
+                <div class="text-left text-wrap">
                     <p><strong>ชื่อสามัญ:</strong><br>{{ prediction.class_namelocal }}.</p>
                     <p><strong>ชื่อทางวิทยาศาสตร์:</strong><br>{{ prediction.class_scientific_name }}.</p>
                     <p><strong>สรรพคุณ:</strong><br>{{ prediction.class_properties }}.</p>
                     <p><strong>วิธีการใช้:</strong><br>{{ prediction.class_use }}.</p>
+                    <a href="{% url 'predict_image' %}" class="btn btn-primary">Back to Upload Image</a>
                 </div>
-                <a href="{% url 'predict_image' %}" class="btn btn-primary">Back to Upload Image</a>
-            </div>
-            <div class="col-lg-4">
-                <!-- Add content for the third column here if needed -->
             </div>
         </div>
         {% else %}
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <p class="text-center">No prediction available.</p>
-                <a href="{% url 'predict_image' %}" class="btn btn-primary">Back to Upload Image</a>
+                <a href="{% url 'predict_image' %}" class="btn btn-primary">Back to new prediction</a>
             </div>
         </div>
         {% endif %}
     </div>
 </body>
 </html>
+
+

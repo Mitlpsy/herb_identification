@@ -6,12 +6,61 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
     <title>Document</title>
+    <style>
+        .drop-area {
+            margin-top: 50px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .drop-area-input {
+            border: 2px dashed #ccc;
+            padding: 250px;
+            margin-top: 50px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .drop-area-predict {
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<body>
-    <form method="post" enctype="multipart/form-data" action="{% url 'predict_image' %}">
-        {% csrf_token %}
-        <input type="file" name="image" accept="image/*">
-        <button type="submit">Predict Image</button>
-    </form>
+<body class="container">
+    <div class="drop-area" id="dropArea">
+        <form method="post" enctype="multipart/form-data" action="{% url 'predict_image' %}">
+            {% csrf_token %}
+            <input type="file" name="image" accept="image/*" id="fileInput" class="drop-area-input">
+            <br>
+            <button type="submit" class="drop-area-predict">Predict Image</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript code for handling file drag and drop
+        const dropArea = document.getElementById("dropArea");
+        const fileInput = document.getElementById("fileInput");
+
+        dropArea.addEventListener("dragenter", (event) => {
+            event.preventDefault();
+            dropArea.style.border = "2px dashed #aaa";
+        });
+
+        dropArea.addEventListener("dragleave", (event) => {
+            event.preventDefault();
+            dropArea.style.border = "2px dashed #ccc";
+        });
+
+        dropArea.addEventListener("dragover", (event) => {
+            event.preventDefault();
+        });
+
+        dropArea.addEventListener("drop", (event) => {
+            event.preventDefault();
+            dropArea.style.border = "2px dashed #ccc";
+            const files = event.dataTransfer.files;
+            fileInput.files = files;
+        });
+    </script>
 </body>
 </html>
