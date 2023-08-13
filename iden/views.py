@@ -34,10 +34,7 @@ def preprocess_image(image_data):
     return preprocessed_image
 
 def perform_prediction(model, preprocessed_image):
-    # Perform prediction using the model on the preprocessed image
-    # Return the predicted class
-
-    # Assuming it's a binary classification, return the class with the highest probability
+   
     predictions = model.predict(preprocessed_image)
     predicted_class = np.argmax(predictions[0])
 
@@ -84,7 +81,6 @@ def predict_image(request):
 # You can use the preprocess_image and perform_prediction functions from the previous answer here
 
 def get_class_info(predicted_class):
-    # Retrieve the class information from the class_mapping dictionary
     class_info = class_mapping.get(predicted_class)
     if class_info:
         class_namelocal = class_info["Local_name"]
